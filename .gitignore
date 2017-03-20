@@ -229,3 +229,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.jpg
+creat_set.sln
+*.avi
+creat_set/creat_set.vcxproj
+creat_set/creat_set.vcxproj.filters
