@@ -3,6 +3,7 @@
 #include <iostream>
 #include <conio.h>
 #include <strstream>
+#include <opencv2/imgproc.hpp>
 
 using namespace cv;
 using namespace std;
@@ -31,7 +32,8 @@ void on_mouse(int event,int x,int y,int flags,void *ustc)//event鼠标事件代号，x,
 	}  
 	if (event == CV_EVENT_MOUSEMOVE && (flags & CV_EVENT_FLAG_LBUTTON))//左键按下时，鼠标移动，则在图像上画矩形  
 	{
-		end_pt = Point2i(cur_pt.x,pre_pt.y+(cur_pt.x-pre_pt.x)/widthHeightRatio);//计算截取结束坐标
+		//end_pt = Point2i(cur_pt.x,pre_pt.y+(cur_pt.x-pre_pt.x)/widthHeightRatio);//计算截取结束坐标
+		end_pt = cur_pt;
 		rectangle(tmp,pre_pt,end_pt,Scalar(0,255,0,0),1,8,0);//在显示图像上实时显示鼠标拖动时形成的矩形  
 	} 
 	if (event == CV_EVENT_LBUTTONUP)//左键松开，在图像上画矩形并保存，保存截取区域
@@ -41,7 +43,8 @@ void on_mouse(int event,int x,int y,int flags,void *ustc)//event鼠标事件代号，x,
 		string s;
 
 		rectangle(img,pre_pt,end_pt,Scalar(0,255,0,0),1,8,0);//在处理图像上显示矩形
-		imwrite(orgName+"0.jpg",img);//保存img
+		cout << img.type();
+		cv::imwrite(orgName+"0.jpg",img);//保存img
 
 		ss<<orgName<<i<<".jpg";
 		ss>>s;
@@ -104,7 +107,8 @@ int main()
 			break;
 		}
 		org.copyTo(img);
-		namedWindow("img",WINDOW_NORMAL);
+		//namedWindow("img",WINDOW_NORMAL);
+		namedWindow("img");
 		setMouseCallback("img",on_mouse,0);//调用回调函数
 		imshow("img",img);
 
